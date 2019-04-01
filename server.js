@@ -1,8 +1,9 @@
 const express = require("express");
 const helmet = require("helmet");
 
-const dishRouter = require("./routes/dish-route");
-const recipeRouter = require("./routes/recipe-route.js");
+const loginRouter = require("./routes/login");
+const registerRouter = require("./routes/register");
+const usersRouter = require("./routes/users");
 
 const server = express();
 
@@ -11,7 +12,8 @@ server.use(express.json());
 server.use(helmet());
 
 //Routes Middleware
-server.use("/api/dishes", dishRouter);
-server.use("/api/recipes", recipeRouter);
+server.use("/api/login", loginRouter);
+server.use("/api/register", registerRouter);
+server.use("/api/users", usersRouter);
 
 module.exports = server;
