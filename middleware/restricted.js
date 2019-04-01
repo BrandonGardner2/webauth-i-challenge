@@ -1,4 +1,5 @@
 const db = require("../data/config");
+const bcrypt = require("bcryptjs");
 
 async function restricted(req, res, next) {
   const { username, password } = req.headers;
@@ -8,10 +9,14 @@ async function restricted(req, res, next) {
       const user = await db("users")
         .where({ username })
         .first();
-      if (bcrypt.compareSync(password, user.password)) {
-        next();
+      if (user) {
+        if (bcrypt.compareSync(password, user.password)) {
+          next();
+        } else {
+          res.status(401).json({ message: "Invalid credentials provided." });
+        }
       } else {
-        res.status(401).json({ message: "Invalid credentials provided." });
+        res.status(404).json({ message: "No user located." });
       }
     } catch (error) {
       res
