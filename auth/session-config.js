@@ -1,15 +1,12 @@
 const session = require("express-session");
 const KnexSessionStore = require("connect-session-knex")(session);
-const crypto = require("crypto");
 
 const knexDBConfig = require("../data/config");
 
 const sessionConfig = {
   name: "user-session",
-  secret: crypto.randomBytes(48, (err, buffer) => {
-    const token = buffer.toString("hex");
-    console.log(token);
-  }),
+  secret:
+    "ec2c11a6b3f4bad26353cc1f33036e9719bf2b3c687c45bfe19febc6e43060d2b681ecc1395ffb1f457b179859a53d36",
   resave: false,
   saveUninitialized: false,
   cookie: {
